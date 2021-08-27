@@ -1,16 +1,16 @@
 ---
+layout: post
 title: "Gradient Boosting"
 date: 2020-10-13
-author: Joao Gomes
 category: Machine Learning
-cover: /images/gradboost_30.png
-tags: data science
-summary: Gradient boosting is another boosting algorithm. It uses gradient descent to minimize the loss function and hence the name. However, unlike in other algorithms, the learning rate is adjusted at every step.
+image: gradboost_30.png
+excerpt: Gradient boosting is another boosting algorithm. It uses gradient descent to minimize the loss function and hence the name. However, unlike in other algorithms, the learning rate is adjusted at every step.
+katex: True
 ---
 
-1. [Gradient boosting](#def1)
-2. [Decision boundary](#decision)
-3. [Python implementation](#python)
+- [**1. Gradient boosting**](#1-gradient-boosting)
+- [**2. Decision Boundary**](#2-decision-boundary)
+- [**3. Python implementation**](#3-python-implementation)
 
 <a name="def1"></a>
 ### **1. Gradient boosting**

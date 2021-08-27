@@ -1,11 +1,10 @@
 ---
+layout: post
 title: "Statistical Testing"
 date: 2020-06-30
-author: Joao Gomes
 category: Statistics
-cover: 
-tags: data science
-summary: We explain in detail the Student's t-statistic and the $\chi^2$ statistic.
+excerpt: We explain in detail the Student's t-statistic and the $\chi^2$ statistic.
+katex: True
 ---
 
 1. [Student's t-test](#def1)

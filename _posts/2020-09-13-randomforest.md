@@ -1,16 +1,16 @@
 ---
+layout: post
 title: "Random Forest"
 date: 2020-09-13
-author: Joao Gomes
 category: Machine Learning
-cover: /images/randomforest.png
-tags: data science
-summary: A random forest is an ensemble of decision trees. The trees are fitted in random samples of the training set, preventing overfitting and reducing variance. 
+image: randomforest.png
+excerpt: A random forest is an ensemble of decision trees. The trees are fitted in random samples of the training set, preventing overfitting and reducing variance. 
+katex: True
 ---
 
-1. [Bagging and Decision Trees](#def1)
-2. [Ensembles and Random forest](#forest)
-3. [Python implementation](#python)
+- [**1. Bagging and Decision Trees**](#1-bagging-and-decision-trees)
+- [**2. Ensembles and Random forest**](#2-ensembles-and-random-forest)
+- [**3. Python Implementation**](#3-python-implementation)
 
 <a name="def1"></a>
 ### **1. Bagging and Decision Trees**

@@ -1,12 +1,12 @@
 ---
+layout: post
 title: "Hyperplanes and classification"
 date: 2020-05-1
-author: Joao Gomes
 category: Machine Learning
-cover: /images/hyperplanes.png
+image: hyperplanes.png
 tags: data science
-summary: We study the $\{0,1\}$ classification problem in $\mathbb{R}^d$ using hyperplanes. We show that the VC dimension is $d+1$.
-
+excerpt: We study the $\{0,1\}$ classification problem in $\mathbb{R}^d$ using hyperplanes. We show that the VC dimension is $d+1$.
+katex: True
 ---
 ### **1. Hyperplanes**
 

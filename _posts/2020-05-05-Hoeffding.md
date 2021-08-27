@@ -1,11 +1,10 @@
 ---
+layout: post
 title: "Hoeffding's inequality"
 date: 2020-05-05
-author: Joao Gomes
 category: Statistics
-cover:
-tags: machine learning
-summary: We derive Hoeffding's inequality. This is one of the most used results in machine learning theory.
+excerpt: We derive Hoeffding's inequality. This is one of the most used results in machine learning theory.
+katex: True
 ---
 
 ### **Hoeffding's inequality**

@@ -1,14 +1,14 @@
 ---
+layout: post
 title: "Linear regression classifier"
 date: 2020-06-20
-author: Joao Gomes
 category: Machine Learning
-cover: images/lr_3classes.png
-tags: data science
-summary: We explain the basics of linear regression and classification.
+image: lr_3classes.png
+excerpt: We explain the basics of linear regression and classification.
+katex: True
 ---
-1. [Linear regression and classification](#def1)
-2. [Python implementation](#python)
+- [**1. Linear regression and classification**](#1-linear-regression-and-classification)
+- [**2. Python implementation**](#2-python-implementation)
 
 
 <a name="def1"></a>

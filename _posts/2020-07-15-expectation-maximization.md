@@ -1,11 +1,10 @@
 ---
+layout: post
 title: "Expectation-Maximization"
 date: 2020-07-15
-author: Joao Gomes
 category: Data Science
-cover: 
-tags: data science
-summary: We explain the theory of the expectation-maximization algorithm.
+excerpt: We explain the theory of the expectation-maximization algorithm.
+katex: true
 ---
 
 Often we have to deal with hidden variables in machine learning problems. The maximum-likelihood algorithm requires "integrating" over these hidden variables if we want to compare with the observed distribution. However this can lead to a serious problem since we have to deal with sums inside the logarithms. That is, we are instructed to maximize the log-likelihood quantity

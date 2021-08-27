@@ -1,11 +1,11 @@
 ---
+layout: post
 title: "Curse of dimensionality"
 date: 2020-05-26
-author: Joao Gomes
 category: Machine Learning
-cover: images/p105p205.png
-tags: data science
-summary: We address the importance of dimensionality in machine learning. 
+iamge: p105p205.png
+excerpt: We address the importance of dimensionality in machine learning. 
+katex: True
 ---
 
 ### **Table of contents**

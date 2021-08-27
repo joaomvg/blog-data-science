@@ -1,11 +1,11 @@
 ---
+layout: post
 title: "VC dimension"
 date: 2020-04-30
-author: Joao Gomes
 category: Machine Learning
-cover: /images/hyperplane_dichotomies.png
-tags: data science
-summary: The VC dimension is a fundamental concept in machine learning theory. It gives a measure of complexity based on combinatorial aspects. This concept is used to show how certain infinite hypothesis classes are PAC-learnable. Some of the main ideas are explained: growth function and shattering. I give examples and show how the VC dimension can bound the generalization error.
+image: hyperplane_dichotomies.png
+excerpt: "The VC dimension is a fundamental concept in machine learning theory. It gives a measure of complexity based on combinatorial aspects. This concept is used to show how certain infinite hypothesis classes are PAC-learnable. Some of the main ideas are explained: growth function and shattering. I give examples and show how the VC dimension can bound the generalization error."
+katex: True
 ---
 ### **Table of contents**
 
