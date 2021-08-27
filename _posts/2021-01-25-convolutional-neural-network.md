@@ -1,11 +1,11 @@
 ---
+layout: post
 title: "Convolutional Neural Network"
 date: 2021-01-25
-author: Joao Gomes
 category: Machine Learning
-cover: /images/conv_layers.png
-tags: data science
-summary: A convolutional neural network can perform vision tasks such as image classification. The convolution operation creates features that carry information about the spatial distribution of the data. We implement a convolutional neural network from scratch using tensors in python.
+image: conv_layers.png
+excerpt: A convolutional neural network can perform vision tasks such as image classification. The convolution operation creates features that carry information about the spatial distribution of the data. We implement a convolutional neural network from scratch using tensors in python.
+katex: True
 ---
 
 1. [Convolutional Neural Network](#def1)
