@@ -28,6 +28,7 @@ github_username:  joaomvg
 linkedin_username: joaomvg
 # Build settings
 theme: minima
+
 plugins:
   - jekyll-feed
   - jekyll-katex

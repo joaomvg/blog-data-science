@@ -30,14 +30,14 @@ $$L(D,g)=\sum_{x:g(x)=0}D(y=1|x)D(x)+\sum_{x:g(x)=1}D(y=0|x)D(x)$$
 
 Use the property that $$a\geq \text{Min}(a,b)$$ and write
 
-$$\begin{align}L(D,g)\geq\sum_{x:g(x)=0}\text{Min}\big(D(y=1|x),D(y=0|x)\big)D(x)+\\
+$$\begin{equation}\begin{split}L(D,g)\geq\sum_{x:g(x)=0}\text{Min}\big(D(y=1|x),D(y=0|x)\big)D(x)+\\
 \sum_{x:g(x)=1}\text{Min}\big(D(y=1|x),D(y=0|x)\big)D(x)\\
-=\sum_{x}\text{Min}\big(D(y=1|x),D(y=0|x)\big)D(x)\end{align}$$
+=\sum_{x}\text{Min}\big(D(y=1|x),D(y=0|x)\big)D(x)\end{split}\end{equation}$$
 
 Note that the r.h.s is precisely the loss of the Bayes classifier. That  is,
 
-$$L(D,h_{\text{Bayes}})=\sum_{x:h(x)=0}D(y=1|x)D(x)+\sum_{x:h(x)=1}D(y=0|x)D(x)
-=\sum_{D(y=1|x)<D(y=0|x)}D(y=1|x)D(x)+\sum_{D(y=1|x)>D(y=0|x)}D(y=0|x)D(x)$$
+$$\begin{equation}\begin{split}L(D,h_{\text{Bayes}})=&\sum_{x:h(x)=0}D(y=1|x)D(x)+\sum_{x:h(x)=1}D(y=0|x)D(x)\\
+=&\sum_{D(y=1|x)<D(y=0|x)}D(y=1|x)D(x)+\sum_{D(y=1|x)>D(y=0|x)}D(y=0|x)D(x)\end{split}\end{equation}$$
 
 <a name="multiclass"></a>
 ### <span style="color:dark"> **2. Multiple classes** </span>
@@ -52,18 +52,20 @@ L(D,g)\geq &\sum_{x:g(x)\neq y_1}\text{Min}\big(D(y_1|x),D(y_2|x),\ldots\big)D(x
 
 Suppose we extend the Bayes optimal classifier to more classes by predicting the class that has higher probability. Then we have
 
-$$\begin{equation}
+$$\begin{equation}\begin{split}
 L(D,h)=\sum_{x:h(x)=y_1\cup h(x)=y_2\ldots}D(y_0|x)D(x)+\sum_{x:h(x)=y_0\cup h(x)=y_2\ldots}D(y_1|x)D(x)+\ldots
-\end{equation}$$
+\end{split}\end{equation}$$
 
 Since $h(x)$ is a predictor the sets $$S_i=\{x:h(x)=y_i\}$$ are disjoint and so we can simplify the sums above. For example
 
-$$\sum_{x:h(x)=y_1\cup h(x)=y_2\ldots}D(y_0|x)D(x)=\sum_{x:h(x)=y_1}D(y_0|x)D(x)+\sum_{x:h(x)=y_2\ldots}D(y_0|x)D(x)+\ldots$$
+$$\begin{equation}\begin{split}\sum_{x:h(x)=y_1\cup h(x)=y_2\ldots}D(y_0|x)D(x)=\sum_{x:h(x)=y_1}D(y_0|x)D(x)+\sum_{x:h(x)=y_2\ldots}D(y_0|x)D(x)+\ldots\end{split}\end{equation}$$
 
-The issue we face now is that since we have multiple classes the maximum value does not determine uniquely the minimum value, and vice-versa, and hence we cannot apply the reasoning used in the binary case. Following similar steps as before, one can show that the multi-class Bayes classifier does not saturate the bound $$\eqref{eq1}$$. As a matter of fact there is no classifier that saturates the bound $$\eqref{eq1}$$. For that to happen we would need a classifier $h(x)$ such that when $$h(x)=y_i$$ we have $$\text{Min}\big(D(y_1|x),D(y_2|x),\ldots\big)=D(y_{k\neq i}|x)\,\forall i,k$$. This means that for a fixed $$i$$ we have $$D(y_{k\neq i}|x)=D(y_{j\neq i}|x)\, \forall k,j\neq i$$. It is then easy to see that this implies that $$D(y_i|x)$$ is a constant, independent of $$x$$, contradicting our assumption.
+The issue we face now is that since we have multiple classes the maximum value does not determine uniquely the minimum value, and vice-versa, and hence we cannot apply the reasoning used in the binary case. Following similar steps as before, one can show that the multi-class Bayes classifier does not saturate the bound Eq.1. As a matter of fact there is no classifier that saturates the bound Eq.1. 
+For that to happen we would need a classifier $h(x)$ such that when $h(x)=y_i$ we have $\text{Min}\big(D(y_1|x),D(y_2|x),\ldots\big)=D(y_{k\neq i}|x)\,\forall i,k$. This means that for a fixed $i$ we have $D(y_{k\neq i}|x)=D(y_{j\neq i}|x)\, \forall k,j\neq i$. It is then easy to see that this implies that $D(y_i|x)$ is a constant, independent of $x$, contradicting our assumption.
 
 ### **Python implementation**
 <br/>
+
 ```python
 import numpy as np
 import pandas as pd

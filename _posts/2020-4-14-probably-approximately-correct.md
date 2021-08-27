@@ -5,6 +5,7 @@ date: 2020-04-14
 category: Machine Learning
 image: circle_learning_epsilon.png
 excerpt: "In this post I explain some of the fundamentals of machine learning: PAC learnability, overfitting and generalisation bounds for classification problems. I show how these concepts work in detail for the problem of learning circumferences."
+katex: True
 ---
 
 
@@ -19,9 +20,9 @@ excerpt: "In this post I explain some of the fundamentals of machine learning: P
 <br/>
 PAC stands for "probably approximately correct". In machine learning we want to find a hypothesis that is as close as possible to the ground truth. Since we only have access to a sample of the real distribution, the hypothesis that one builds is itself a function of the sample data, and therefore it is a random variable.  The problem that we want to solve is whether the sample error incurred in choosing a particular hypothesis  is approximately the same as the exact distribution error, within a certain confidence interval.
 
-Suppose we have a binary classification problem (the same applies for multi-class) with classes $y_i\in \{y_0,y_1\}$, and we are given a training dataset $S$ with $m$ data-points. Each data-point is characterised by $Q$ features, and represented as a vector $q=(q_1,q_2,\ldots,q_Q)$. We want to find a map $\mathcal{f}$ between these features and the corresponding class $y$:
+Suppose we have a binary classification problem (the same applies for multi-class) with classes $$y_i\in \{y_0,y_1\}$$, and we are given a training dataset $S$ with $m$ data-points. Each data-point is characterised by $Q$ features, and represented as a vector $$q=(q_1,q_2,\ldots,q_Q)$$. We want to find a map $$\mathcal{f}$$ between these features and the corresponding class $$y$$:
 
-\begin{equation}\mathcal{f}: (q_1,q_2,\ldots,q_Q)\rightarrow \{y_0,y_1\}\end{equation}
+$$\mathcal{f}: (q_1,q_2,\ldots,q_Q)\rightarrow \{y_0,y_1\}$$
 
 This map, however, does not always exist. There are problems for which we can only determine the class up to a certain confidence level. In this case we say that the learning problem is *agnostic*, while when the map exists we say that the problem is *realisable*. For example, image recognition is an agnostic problem.
 
@@ -33,7 +34,9 @@ with $\mathbb{1}(.)$ the Kronecker delta function. Denote the solution of this o
 
 $$L(D,h)=\sum_x\mathbb{1}\left[h(x)\neq y(x)\right]D(x)$$
 
-where $D(x)$ is the real distribution. In the case of classification, the generalisation error is also the probability of misclassifying a point $L(D,h)=\mathbb{P}_{x\sim D(x)}(h(x)\neq y(x))$.
+where $D(x)$ is the real distribution. In the case of classification, the generalisation error is also the probability of misclassifying a point 
+
+$$L(D,h)=\mathbb{P}_{x\sim D(x)}(h(x)\neq y(x))$$
 
 If we choose appropriately $\mathcal{H}$ we may find $\text{min}\;L_S(h_S)=0$. This can happen, for example, by memorising the data. In this case, we say that the hypothesis is *overfitting* the data. Although memorising the data results in zero empirical error, the solution is not very instructive because it does not give information of how well it will perform on unseen data. 
 
@@ -57,13 +60,13 @@ Assuming that the learner has prior knowledge of the ground truth (realisability
 
 Given that this is an overfitting solution, one has to be careful of how well it generalises. It is possible that the generalisation error is small for such a solution, but one has to be confident of how common this situation may be. If the sample that led to that solution is a rare event then we should not trust its predictions, and we should expect large generalization error. Therefore we are interested in bounding the probability of making a bad prediction, that is,
 
-\begin{equation}\label{eq1}\mathbb{P}_{S \sim D^m(x)}(L(D,h_S)>\epsilon)<\delta \tag{1}\end{equation}
+$$\mathbb{P}_{S \sim D^m(x)}(L(D,h_S)>\epsilon)<\delta \tag{1}$$
 
 Conversely, this tells us with confidence of at least $1-\delta$ that
 
-\begin{equation}\label{eq2}L(D,h_S)\leq\epsilon\tag{2}\end{equation}
+$$L(D,h_S)\leq\epsilon\tag{2}$$
 
-A *PAC learnable hypothesis* is a hypothesis for which one can put a bound on the probability of the form \eqref{eq1} with $\epsilon, \delta$ arbitrary.
+A *PAC learnable hypothesis* is a hypothesis for which one can put a bound on the probability of the form Eq.1 with $\epsilon, \delta$ arbitrary.
 
 In  the case of the circumference example, define $R_{\epsilon}$ for which $L(D,h_{\epsilon})=\epsilon$, with $h_{\epsilon}$ the corresponding solution. Any hypothesis corresponding to a radius less than $R_{\epsilon}$ leads to a generalisation error larger than $\epsilon$. The probability of sampling a point and falling in the region between $R_{\epsilon}$ and $R$ is precisely $\epsilon$. Conversely the probability of falling outside that region is $1-\epsilon$. It is then easy to see that the probability that we need equals
 
@@ -90,7 +93,7 @@ Similarly one can define the set of misleading training sets, as those that lead
 
 $$M=\{S: h\exists \mathcal{H}_B, L_S(h)=0\}$$
 
-Since we assume the class is realisable, the hypothesis $h_S$ in equation $\eqref{eq3}$ must have $L_S(h_S)=0$, and therefore the sample data is a misleading dataset. So we need the probability of sampling a misleading dataset $S\in M$. Using
+Since we assume the class is realisable, the hypothesis $h_S$ in equation Eq.3 must have $L_S(h_S)=0$, and therefore the sample data is a misleading dataset. So we need the probability of sampling a misleading dataset $S\in M$. Using
 
 $$\begin{align}
 M=\cup_{h\in \mathcal{H}_B} \{S: L_S(h)=0\}
@@ -146,9 +149,9 @@ $$|L_S(h)-L(D,h)|\leq \sqrt{\frac{1}{2m}\ln\left(\frac{2\mid\mathcal{H}\mid}{\de
 
 Say that we have $L(D,h)>L_S(h)$ for $h=h_S$, the solution we obtain after minimising the empirical loss, then
 
-\begin{equation}\label{eq4}L(D,h)\leq L_S(h)+\sqrt{\frac{1}{2m}\ln\left(\frac{2\mid\mathcal{H}\mid}{\delta}\right)}\tag{4}\end{equation}
+$$L(D,h)\leq L_S(h)+\sqrt{\frac{1}{2m}\ln\left(\frac{2\mid\mathcal{H}\mid}{\delta}\right)}\tag{4}$$
 
-This equation demonstrates clearly the trouble with overfitting. To memorise the data we need to use hypothesis classes with large dimension, so the solution has enough capacity to accommodate each data-point. This makes the second term on r.h.s of the inequality \eqref{eq4} very large, loosening the bound on the generalisation error instead of making it tighter. The fact is that we should minimise the empirical error together with that term, so we make the bound on the true error smaller. This leads us to the idea of regularisation in machine learning, whereby the empirical loss is endowed with correction terms that mitigate highly complex solutions.
+This equation demonstrates clearly the trouble with overfitting. To memorise the data we need to use hypothesis classes with large dimension, so the solution has enough capacity to accommodate each data-point. This makes the second term on r.h.s of the inequality Eq.4 very large, loosening the bound on the generalisation error instead of making it tighter. The fact is that we should minimise the empirical error together with that term, so we make the bound on the true error smaller. This leads us to the idea of regularisation in machine learning, whereby the empirical loss is endowed with correction terms that mitigate highly complex solutions.
 
 ### **References**
 <br/>
