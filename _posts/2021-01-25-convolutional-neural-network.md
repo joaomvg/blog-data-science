@@ -21,17 +21,17 @@ $$ K(m_{ij})=\sum_{\mu,\nu=0}^{k-1} w_{\mu\nu}m_{i+\mu,j+\nu}+b$$
 
 where $b$ is a bias. The convolution operation is depicted in the picture below for a kernel of size $4\times4$.
 
-![](/images/conv_img.png){width="350" height="350" style="display: block; margin: 0 auto"} 
+<div style="text-align: center"><img src="/images/conv_img.png"  width="50%"></div>
 
 The convolution runs over the pixels where the kernel is allowed to be inside the image. That is, we have $m_{i+\mu,j+\nu}=m_{i'j'}$. We can relax this condition and allow for a padding $P$ that we add at the beginning and end of the image. Then we ensure that all pixels living in the padding regions are zero, that is, $m_{ij}=0$ for $i,j\in [-P,0[\,\cup\, ]N-1,N-1+P]$. One can also define a stride $S$ that determines the pixels the kernel runs over, that is, $(i,j)=(-P\text{ mod}(S),-P \text{ mod(S)})$. Therefore, if the pixel matrix has size $N\times N$ then the output of the convolution has shape $N'\times N'$ with
 
 $$N'=(N+2P-k+1)//S+1$$
 
-After the convolution operation, we apply a non-linear activation function on each element of the matrix $m'_{i'j'}$. The result is the output of a convolutional layer.  Besides, one can create channels whereby we apply multiple kernels to the same input. So if the kernel $K^c$ has C channels, the convolutional layer's output is $C$ matrices $m^c_{i'j'}$. Similarly, for each matrix $m^c_{i'j'}$ one can further apply a kernel with $C'$ channels. The result of using first the kernel $K^c$, and then $K^{c'}$ is $C\times C'$ matrices.
+After the convolution operation, we apply a non-linear activation function on each element of the matrix $$m'_{i'j'}$$. The result is the output of a convolutional layer.  Besides, one can create channels whereby we apply multiple kernels to the same input. So if the kernel $$K^c$$ has C channels, the convolutional layer's output is $C$ matrices $$m^c_{i'j'}$$. Similarly, for each matrix $$m^c_{i'j'}$$ one can further apply a kernel with $$C'$$ channels. The result of using first the kernel $$K^c$$, and then $$K^{c'}$$ is $$C\times C'$$ matrices.
 
 After the convolutional layers, the resulting matrix is flattened and added as an input to a feed-forward neural network. Below we show this series of operations.
 
-![](/images/conv_layers.png){width="350" height="350" style="display: block; margin: 0 auto"} 
+<div style="text-align: center"><img src="/images/conv_layers.png"  width="50%"></div>
 
 <a name="python"></a>
 ### **2. Python implementation**
