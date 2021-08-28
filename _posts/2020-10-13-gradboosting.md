@@ -15,38 +15,60 @@ katex: True
 <a name="def1"></a>
 ### **1. Gradient boosting**
 In gradient boosting, much like in adaboost, we fit a sequence of weak learners in an iterative manner. In this way, the predictor at the mth-step is given as a sum of the predictors from previoues iterations, that is,
+
 $$F_m(x)=\gamma_0+\gamma_1 w_1(x)+\ldots+\gamma_m w_m(x)$$
+
 where $w_i(x)$ is the weak-learner predictor and $\gamma_0$ is a constant.
 
 To motivate the gradient we consider the Taylor approximation of the loss function around $F_{m-1}$, that is,
+
 $$L(F_m)=L(F_{m-1})+\frac{\partial L}{\partial F}\Bigr|_{F_{m-1}}(F_m-F_{m-1})+\ldots$$
-In the gradient descent algorithm we take a step of magnitude proportional to  $F_m-F_{m-1}\propto-\frac{\partial L}{\partial F_{m-1}}$. The constant of proportionality is the learning rate. Since $F_m-F_{m-1}\propto w(x)$, the best we can do is to fit $w(x)$ to the gradient descent direction, that is,
+
+In the gradient descent algorithm we take a step of magnitude proportional to  
+
+$$F_m-F_{m-1}\propto-\frac{\partial L}{\partial F_{m-1}}$$
+
+The constant of proportionality is the learning rate. Since 
+
+$$F_m-F_{m-1}\propto w(x)$$
+
+the best we can do is to fit $w(x)$ to the gradient descent direction, that is,
+
 $$w(x)\sim -\frac{\partial L}{\partial F_{m-1}}$$
+
 where $\sim$ means that we fit the learner. In order to fix $\gamma_m$, effectively the learning rate, we solve the one-dimensional optimization problem
+
 $$\gamma_m=\text{argmin}_{\gamma_m} L(y,F_{m-1}+\gamma_m w(x))$$
+
 where $y$ is the target array. We repeat this process until the solution is sufficiently accurate.
 
+To exemplify how this works in practice, consider a binary classification problem. In this case, we use the logit function using the boosting algorithm. In other words, we assume that the likelihood $$p(y=0|x)$$ 
+has the form
 
-To exemplify how this works in practice, consider a binary classification problem. In this case, we use the logit function using the boosting algorithm. In other words, we assume that the likelihood $p(y=0|x)$ has the form
 $$p(y=0|x)=\frac{1}{1+e^{-F_m(x)}}$$
+
 with $F_m(x)$ given as above. The loss $L$ is the the log-loss function. The gradient descent direction is given by the variational derivative, that is,
+
 $$r^i\equiv-\frac{\partial L}{\partial F_{m-1}}\Bigr|_{x^i}=\frac{e^{-F_{m-1}(x^i)}}{1+e^{-F_{m-1}(x^i)}}-y^i$$
+
 and we fit $w_m(x)$ to $r^i$. Then we are left with the minimization problem
+
 $$\text{argmin}_{\gamma_m} \sum_{y^i=0}\ln\Big( 1+e^{-F_{m-1}(x^i)-\gamma_m w_m(x^i)}\Big) -\sum_{y^i=1}\ln \Big(\frac{e^{-F_{m-1}(x^i)-\gamma_m w(x^i)}}{1+e^{-F_{m-1}(x^i)-\gamma_m w(x^i)}}\Big)$$
+
 which determines the learning rate, that is, $\gamma_m$. This is a convex optimization problem and can be solved using the Newton-Raphson method.
 
 <a name="decision"></a>
 ### **2. Decision Boundary**
 
 We fit an GradBoost classifier to a dataset consisting of two sets of points, red and blue, which are normally distributed. Below is the Gradient boosting prediction after six steps.
-![](/images/gradboost_6.png){width="400" height="400" style="display: block; margin: 0 auto"} 
+ <div style="text-align: center"><img src="/images/gradboost_6.png"  width="70%"></div>
+
 
 And below we present the prediction at each step of training, from left to right
-![](/images/gradboost_seq.png){width="800" height="800" style="display: block; margin: 0 auto"} 
+ <div style="text-align: center"><img src="/images/gradboost_seq.png"  width="100%"></div>
 
 One can see that the algorithm is trying to overfit the data by drawing a more complex decision boundary at each step. If we let the algorithm run with 30 estimators the decision boundary becomes very complex
-
-![](/images/gradboost_30.png){width="400" height="400" style="display: block; margin: 0 auto"}
+ <div style="text-align: center"><img src="/images/gradboost_30.png"  width="70%"></div>
 
 <a name="python"></a>
 ### **3. Python implementation**

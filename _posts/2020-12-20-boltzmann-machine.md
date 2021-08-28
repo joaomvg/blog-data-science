@@ -15,10 +15,11 @@ katex: True
 <a name="bm"></a>
 ### **1. Boltzmann Machine**
 
-A Boltzmann machine models an unsupervised probability distribution using a graphical representation composed of visible and hidden units. The visible data's probability is obtained by summing over the hidden variables, with a weight function, which is the exponential of the energy term $E(v,h)$, like the Boltzmann distribution in statistical mechanics. For the diagram below 
- <div style="text-align: center"><img src="/images/bm.png"  width="30%"></div>
-the probability has the form
+A Boltzmann machine models an unsupervised probability distribution using a graphical representation composed of visible and hidden units. The visible data's probability is obtained by summing over the hidden variables, with a weight function, which is the exponential of the energy term $$E(v,h)$$, like the Boltzmann distribution in statistical mechanics. For the diagram below 
 
+ <div style="text-align: center"><img src="/images/bm.png"  width="30%"></div>
+
+the probability has the form
 
 $$P(v)=\sum_{\{h\}}P(v,h)=\sum_{\{h\}}\frac{\exp{E(v,h)}}{Z}=\sum_{\{h\}}\frac{\exp{(-\sum_iv_ia_i-\sum_ih_ib_i-\sum_{i,j}v_iW_{ij}h_j)}}{Z}$$
 
@@ -30,64 +31,80 @@ The Boltzmann machine can have more complicated graph interaction including edge
  <div style="text-align: center"><img src="/images/bm3.png"  width="40%"></div>
 
 A restricted Boltzmann machine is a Boltzmann machine for which there are no interactions between the nodes in the same layer. In terms of parameters, each node $i$ contains a bias $$b_i$$, and a parameter $$W_{ij}$$ for each edge between the nodes $$i$$ and $$j$$.
+
 <a name="Train"></a>
 ### **2. Training**
 
-During training, we want to minimize the Kullback-Leibler divergence between the actual distribution of visible data $D(v)$ and the output of the Boltzmann machine $$P(v)$$. That is, we seek the optimum of
+During training, we want to minimize the Kullback-Leibler divergence between the actual distribution of visible data $$D(v)$$ and the output of the Boltzmann machine $$P(v)$$. That is, we seek the optimum of
 
-$$KL(D||P)=\sum_v D(v)\ln\Big(\frac{D(v)}{P(v)}\Big)$$
+$$\begin{equation*}\begin{split}KL(D||P)=\sum_v D(v)\ln\Big(\frac{D(v)}{P(v)}\Big)\end{split}\end{equation*}$$
 
-Lets focus for the moment on a restricted machine with one hidden layer. The derivatives of the loss function $$L\equiv KL(D||P)$$ with respect to the weights is
-$$\begin{aligned}\frac{\partial L}{\partial W_{ij}}&=\sum_v D(v)\frac{\sum_h v_ih_j \exp{E(v,h)}}{\sum_h \exp{E(v,h)}}
--\sum_v D(v)\frac{\sum_{v',h'}v'_ih'_j \exp{E(v',h')}}{Z}\\
-&=\sum_{v,h} v_ih_j P(h|v)D(v) -\sum_{v,h}v_ih_j P(v,h)\\
-&=\langle v_ih_j\rangle_{data}-\langle v_ih_j\rangle_{model}\end{aligned}$$
+Lets focus for the moment on a restricted machine with one hidden layer. The derivatives of the loss function 
+$$L\equiv KL(D||P)$$ 
+with respect to the weights is
+
+
+$$\begin{equation}\begin{split}\frac{\partial L}{\partial W_{ij}}&=\sum_v D(v)\frac{\sum_h v_ih_j \exp{E(v,h)}}{\sum_h \exp{E(v,h)}}-\sum_v D(v)\frac{\sum_{v',h'}v'_ih'_j \exp{E(v',h')}}{Z}\\ &=\sum_{v,h} v_ih_j P(h|v)D(v) -\sum_{v,h}v_ih_j P(v,h)\\ &=\langle v_ih_j\rangle_{data}-\langle v_ih_j\rangle_{model}\end{split}\end{equation}$$
 
 and similarly for the biases
-$$\begin{aligned}&\frac{\partial L}{\partial a_{i}}=\langle v_i\rangle_{data}-\langle v_i\rangle_{model}\\
-&\frac{\partial L}{\partial b_{i}}=\langle h_i\rangle_{data}-\langle h_i\rangle_{model}\end{aligned}$$
 
-Since the gradient is the sum of two averages, one may try to use stochastic optimization. To calculate $$\langle hv\rangle_{data}$$ we can generate unbiased samples $$h_iv_j$$ and then take the average as an estimate. To do that, we can use Gibbs sampling. First we pick a training sample $v$ and then generate a sample $h$ using the conditional probability $$P(h_1,h_2,\ldots|v)$$. We can write
-$$\begin{aligned}
-P(h_1,h_2,\ldots|v)&=\frac{P(h_1,h_2,\ldots,v)}{\sum_h P(h,v)}=\\
+$$\begin{equation*}\begin{split}&\frac{\partial L}{\partial a_{i}}=\langle v_i\rangle_{data}-\langle v_i\rangle_{model}\\&\frac{\partial L}{\partial b_{i}}=\langle h_i\rangle_{data}-\langle h_i\rangle_{model}\end{split}\end{equation*}$$
+
+Since the gradient is the sum of two averages, one can use stochastic optimization. To calculate $$\langle hv\rangle_{data}$$ 
+we can generate unbiased samples 
+$$h_iv_j$$ 
+and then take the average as an estimate. To do that, we can use Gibbs sampling. First we pick a training sample $$v$$ and then generate a sample $$h$$ using the conditional probability 
+$$P(h_1,h_2,\ldots|v)$$
+. We can write
+
+$$\begin{equation*}\begin{split}P(h_1,h_2,\ldots|v)&=\frac{P(h_1,h_2,\ldots,v)}{\sum_h P(h,v)}=\\
 &=\frac{\exp{(-\sum_j h_jb_j -\sum_{ij}v_iW_{ij}h_j)}}{\prod_{j}(1+\exp{(-b_j-\sum_{i}v_i W_{ij})})}\\
 &=\prod_j\frac{\exp{(-h_jb_j -h_j\sum_{i}v_iW_{ij})}}{(1+\exp{(-b_j-\sum_{i}v_i W_{ij})})}\\
-&=\prod_{j=1}^{N_h} P(h_j|v)
-\end{aligned}$$
+&=\prod_{j=1}^{N_h} P(h_j|v)\end{split}\end{equation*}$$
 
 where $$N_h$$ is the number of hidden units and we have defined
+
 $$P(h_j=1|v)=\frac{1}{1+\exp{(b_i+\sum_i v_iW_{ij})}}$$
-Similarly the probability $$P(v_1,v_2,\ldots|h)$$ can be written as
+
+Similarly the probability 
+$$P(v_1,v_2,\ldots|h)$$ 
+can be written as
+
 $$P(v_1,v_2,\ldots|h)=\prod_{i=1}^{N_v} P(v_i|h)$$
 
 where $$N_v$$ is the number of visible units and
+
 $$P(v_i=1|h)=\frac{1}{1+\exp{(a_i+\sum_j W_{ij}h_j)}}$$
 
 The probabilty for visible states can also be written in a compact way. Defining
-$$\begin{aligned}
-\Phi(v)&\equiv\sum_{h}\exp{(-\sum_i v_i a_i-\sum_j h_j b_j-\sum_{ij}v_iW_{ij}h_j)}=\\
-&=\exp{(-\sum_i v_i a_i)}\prod_{j}(1+\exp{(-b_j-\sum_{i}v_i W_{ij})})
-\end{aligned}$$
+
+$$\begin{equation*}\begin{split}\Phi(v)&\equiv\sum_{h}\exp{(-\sum_i v_i a_i-\sum_j h_j b_j-\sum_{ij}v_iW_{ij}h_j)}=\\
+&=\exp{(-\sum_i v_i a_i)}\prod_{j}(1+\exp{(-b_j-\sum_{i}v_i W_{ij})})\end{split}\end{equation*}$$
 
 this probability becomes
+
 $$P(v)=\frac{\Phi(v)}{\sum_v \Phi(v)}$$
 
-However, to generate a sample for the average $$\langle hv\rangle_{model}$$ is quite harder because we do not have direct access to $$P(v)$$. Instead choose a training vector $$v$$ and generate a state $h$ using $$P(h|v)$$. Further, given this state $$h$$ reconstruct the state $$v$$ using $$P(v|h)$$. The change in the weight is then given by
+However, to generate a sample for the average 
+$$\langle hv\rangle_{model}$$ 
+is quite harder because we do not have direct access to $$P(v)$$. Instead choose a training vector $$v$$ and generate a state $$h$$ using $$P(h|v)$$. Further, given this state $$h$$ reconstruct the state $$v$$ using $$P(v|h)$$. The change in the weight is then given by
+
 $$\Delta W_{ij}=-\eta( \langle v_ih_j\rangle_{data}-\langle v_ih_j\rangle_{recons})$$
 
 where $$\eta$$ is the learning rate.
 
 If the Boltzmann machine contains couplings between nodes in the same layer, the analysis is very similar. We calculate the derivatives of the loss with respect to $$L_{ij}$$ and $$J_{ij}$$, respectively the couplings between visible-visible and hidden-hidden units,
-$$\begin{aligned}
-&\frac{\partial L}{\partial L_{ij}}=\langle v_iv_j\rangle_{data}-\langle v_iv_j\rangle_{model}\\
-&\frac{\partial L}{\partial J_{ij}}=\langle h_ih_j\rangle_{data}-\langle h_ih_j\rangle_{model}\end{aligned}$$
+
+$$\begin{equation*}\begin{split}&\frac{\partial L}{\partial L_{ij}}=\langle v_iv_j\rangle_{data}-\langle v_iv_j\rangle_{model}\\&\frac{\partial L}{\partial J_{ij}}=\langle h_ih_j\rangle_{data}-\langle h_ih_j\rangle_{model}\end{split}\end{equation*}$$
 
 Again the idea is to replace the model average with a point estimate by generating unbiased samples $$v_iv_j$$ and $$h_ih_j$$ and calculate their sample averages.
 
-To monitor training, we usually plot values of the log-likelihood function. However, in a Boltzmann machine determining the probability $$P(v)$$ is prohibitively expensive since calculating the partition function $Z$ requires adding up an exponential number of terms. The complexity is of order $\mathcal{O}(2^{N_v})$, where $N_v$ is the number of visible units. Instead, we calculate the pseudo-loglikelihood. This quantity is defined as
+To monitor training, we usually plot values of the log-likelihood function. However, in a Boltzmann machine determining the probability $$P(v)$$ is prohibitively expensive since calculating the partition function $$Z$$ requires adding up an exponential number of terms. The complexity is of order $$\mathcal{O}(2^{N_v})$$, where $$N_v$$ is the number of visible units. Instead, we calculate the pseudo-loglikelihood. This quantity is defined as
+
 $$\text{Pseudo-LL}(v)=\sum_{i}\ln P(v_i|\{v_{j\neq i}\})$$
 
 that is, the sum over the log-probabilities conditioned on the remaining visible units. Remember that the log-likelihood can be written as
+
 $$\ln P(v)=\ln P(v_1)+\ln P(v_2|v_1) +\ln P(v_3|v_1,v_2)+\ldots+\ln P(v_n|\{v_{1:n-1}\})$$
 
 after using the Bayes theorem. It can be shown that the pseudo-loglikelihood descreases during training.
