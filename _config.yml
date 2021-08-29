@@ -27,17 +27,17 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  joaomvg
 linkedin_username: joaomvg
 # Build settings
-theme: minima
- 
+theme: jekyll-theme-minimal
+
 plugins:
   - jekyll-feed
   - jekyll-katex
   - jekyll-paginate
-  - jekyll-feed
   - jekyll-sitemap
 
-paginate: 5
+  paginate: 5
 paginate_path: "/blog/page:num/"
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
