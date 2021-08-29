@@ -22,7 +22,7 @@ lr=pickle.load(open('lr_model.pkl','rb'))
 def index():
     return "Linear Regression model API."
 
-@app.route('/model',methods=['POST'])
+@app.route('/model/invoke',methods=['POST'])
 def model():
     if not request.json or not 'data' in request.json:
         abort(400)
@@ -35,5 +35,27 @@ def model():
 if __name__ == '__main__':
     app.run(debug=True,port=5000,host='0.0.0.0')
 
+```
+To test the api, run this script on a remote cloud instance (Linode offers up to 100 dollars to experiment their services). Then allow for incoming connections on port 5000, as set in the script (or any other port of your choice).  Send a POST request to the api using the IP address of the instance, for example
+
+```python
+curl --location --request POST 'xxx.xxx.xxx.xxx:5000/model/invoke' \
+--header 'Content-Type: application/json' \
+--data-raw '{"data":[2,3,4,5]}'
+```
+On the remote, you can see a POST request from the Ip address of your local computer:
+
+<div style="text-align: center"><img src="/images/linode_api.png"  width="100%"></div>
+
+And this is the response from the api call:
+```python
+{
+  "prediction": [
+    4.354176603044118, 
+    6.384373814367889, 
+    8.414571025691659, 
+    10.44476823701543
+  ]
+}
 
 ```
