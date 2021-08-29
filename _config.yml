@@ -28,7 +28,11 @@ github_username:  joaomvg
 linkedin_username: joaomvg
 # Build settings
 theme: jekyll-theme-minimal
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 945943150719cb90997a95fa7533a40fcb049561
 plugins:
   - jekyll-feed
   - jekyll-katex
