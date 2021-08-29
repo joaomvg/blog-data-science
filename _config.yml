@@ -27,19 +27,14 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  joaomvg
 linkedin_username: joaomvg
 # Build settings
-theme: jekyll-theme-minimal
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> 945943150719cb90997a95fa7533a40fcb049561
+theme: minima
 plugins:
   - jekyll-feed
   - jekyll-katex
   - jekyll-paginate
   - jekyll-sitemap
 
-  paginate: 5
+paginate: 5
 paginate_path: "/blog/page:num/"
 
 
