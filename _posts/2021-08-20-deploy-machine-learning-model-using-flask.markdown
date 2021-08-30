@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "Deploy Machine Learning Model using Flask"
+title: "Deploy Machine Learning using Flask"
 date: 2021-08-20 09:20
+image: linode_api.png
 categories: Cloud-Computing
 ---
 
@@ -45,7 +46,7 @@ curl --location --request POST 'xxx.xxx.xxx.xxx:5000/model/invoke' \
 ```
 On the remote, you can see a POST request from the Ip address of your local computer:
 
-<div style="text-align: center"><img src="/images/linode_api.png"  width="100%"></div>
+<div style="text-align: center"><img src="/images/linode_api.png"  width="90%"></div>
 
 And this is the response from the api call:
 ```python
