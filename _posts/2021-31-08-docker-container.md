@@ -9,4 +9,3 @@ katex: True
 
 ### Containers
 
-<div style="text-align: center"><img src="/images/bm.png"  width="70%"></div>
