@@ -307,21 +307,21 @@ loss=LogLoss(rbm_28x28)
 opt=Optimizer(rbm_28x28,lr=0.01)
 ```
  The first 10 epochs of training
- <div style="text-align: center"><img src="/images/rbm_losses.png"  width="50%"></div>
+ <div style="text-align: center"><img src="/images/rbm_losses.png"  width="70%"></div>
 we can see that the pseudo-loss decreases steadily.
 
 Once the model is trained we can generate samples using a Gibbs sampler that is built in the RBM class.
 After 10 epochs:
 
- <div style="text-align: center"><img src="/images/rbm_train_10.png"  width="50%"></div>
+ <div style="text-align: center"><img src="/images/rbm_train_10.png"  width="70%"></div>
 
 After 20 epochs:
 
-![](/images/rbm_train_20.png){width="600" height="600" style="display: block; margin: 0 auto"} 
+ <div style="text-align: center"><img src="/images/rbm_train_20.png"  width="50%"></div>
 
 And finally after 40 epochs:
 
- <div style="text-align: center"><img src="/images/rbm_train_40.png"  width="50%"></div>
+ <div style="text-align: center"><img src="/images/rbm_train_40.png"  width="70%"></div>
 
 We see that with longer training the generated samples show more differentiation.
 
