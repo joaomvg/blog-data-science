@@ -2,7 +2,7 @@
 layout: post
 title: "Deploy Machine Learning using Flask"
 date: 2021-08-20 09:20
-image: linode_api.png
+image: consoleapi.png
 categories: Cloud-Computing
 ---
 
