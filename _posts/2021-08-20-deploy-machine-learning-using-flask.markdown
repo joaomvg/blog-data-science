@@ -45,10 +45,7 @@ curl --location --request POST 'xxx.xxx.xxx.xxx:5000/model/invoke' \
 --data-raw '{"data":[2,3,4,5]}'
 ```
 On the remote, you can see a POST request from the Ip address of your local computer:
-
-<div style="text-align: center"><img src="/images/linode_api.png"  width="90%"></div>
-
-<div style="text-align: center"><img src="/images/conv_img.png"  width="50%"></div>
+<div style="text-align: center"><img src="/images/linode_api.png"  width="70%"></div>
 
 And this is the response from the api call:
 ```python
