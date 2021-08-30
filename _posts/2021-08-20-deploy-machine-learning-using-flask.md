@@ -2,7 +2,7 @@
 layout: post
 title: "Deploy Machine Learning using Flask"
 date: 2021-08-20 09:20
-image: consoleapi.png
+image: consoleapi.jpg
 categories: Cloud-Computing
 ---
 
@@ -45,7 +45,7 @@ curl --location --request POST 'xxx.xxx.xxx.xxx:5000/model/invoke' \
 --data-raw '{"data":[2,3,4,5]}'
 ```
 On the remote, you can see a POST request from the Ip address of your local computer:
-![](/images/consoleapi.png)
+![](/images/consoleapi.jpg)
 
 And this is the response from the api call:
 ```python
