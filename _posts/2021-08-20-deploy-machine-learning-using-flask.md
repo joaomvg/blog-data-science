@@ -45,7 +45,7 @@ curl --location --request POST 'xxx.xxx.xxx.xxx:5000/model/invoke' \
 --data-raw '{"data":[2,3,4,5]}'
 ```
 On the remote, you can see a POST request from the Ip address of your local computer:
-<div style="text-align: center"><img src="/images/ubuntuterminal.png"  width="50%"></div>
+![](/images/consoleapi.png)
 
 And this is the response from the api call:
 ```python
