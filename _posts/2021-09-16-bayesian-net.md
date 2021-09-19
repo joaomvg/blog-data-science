@@ -19,7 +19,7 @@ This can be represented with the graph:
 <div style="text-align: center"><img src="/blog-data-science/images/bn_dag.png"  width="25%"></div>
 
 Since A and B are independent variables, there is no arrow in between them. On the other hand, if we introduce an arrow in between A and B,
-<div style="text-align: center"><img src="/blog-data-science/images/bn_dag_2.png"  width="25%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_dag_2.png"  width="50%"></div>
 
 then the probabilistic model becomes
 
@@ -170,3 +170,16 @@ which have almost the same value. In fact, we can check that the difference is n
  $$[-0.00773, 0.00770]$$
 
  while the observed difference is $0.00181$, which is well inside that interval. So effectively, model 4 is statistically the same as the model 1.
+
+### BNLearn
+
+ BNLearn is a Python library for bayesian learning. We can perform structure learning very easily:
+ ```python
+import bnlearn as bn
+
+model = bn.structure_learning.fit(data)
+G = bn.plot(model)
+ ```
+<div style="text-align: center"><img src="/blog-data-science/images/bnlearn_fit.png"  width="75%"></div>
+
+which is precisely the model that we have designed.
