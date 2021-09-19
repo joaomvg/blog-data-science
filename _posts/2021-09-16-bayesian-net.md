@@ -3,8 +3,8 @@ layout: post
 title: "Bayesian Network"
 date: 2021-09-16
 category: Machine Learning
-image: bn_dag_2.png
-excerpt: Explain Bayesian networks
+image: bn_cover.png
+excerpt: Bayesian networks encode probabilistic models in directed acyclic graphs. A node represents a covariate and the edges encode the conditional probabilities. We describe bayesian networks, give examples and explain how to determine the graph given observed data- structure learning.
 katex: True
 ---
 
