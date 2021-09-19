@@ -15,10 +15,10 @@ $$P(C,A,B)=P(C|A,B)P(A)P(B)$$
 
 This can be represented with the graph:
 
-<div style="text-align: center"><img src="/images/bn_dag.png"  width="25%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_dag.png"  width="25%"></div>
 
 Since A and B are independent variables, there is no arrow in between them. On the other hand, if we introduce an arrow in between A and B,
-<div style="text-align: center"><img src="/images/bn_dag_2.png"  width="25%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_dag_2.png"  width="25%"></div>
 
 then the probabilistic model becomes
 
@@ -52,7 +52,7 @@ $$\begin{equation}\begin{split}&P(a=1)=0.2, \\
 &P(c=1,a=0,b=0)=0.6\end{split}\end{equation}$$
 
 and generate a dataset by random sampling:
-<div style="text-align: center"><img src="/images/bn_data.png"  width="30%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_data.png"  width="30%"></div>
 
 Now we can re-determine the various parameteres using maximum likelihood estimation. For each sample we calculate the corresponding probability and its logarithm. The total log-likelihood is the sum over all samples. That is,
 
@@ -163,7 +163,7 @@ $$\begin{equation}\begin{split}&p(b=1|a=0)=0.49804\\
 &p(b=1|a=1)=0.49985
 \end{split}\end{equation}$$
 
-which have almost the same value. In fact, when can check that the difference is not statistically significant, but only due to finite sample size. To do this, we generate permutation samples for the values 'b' and calculate
+which have almost the same value. In fact, we can check that the difference is not statistically significant, but only due to finite sample size. To do this, we generate permutation samples for the values 'b' and calculate
  $p(b=1|a=0)$ and $p(b=1|a=1)$. Then we determine the distribution of the difference $p(b=1|a=1)-p(b=1|a=0)$. The 95% probability interval is:
 
  $$[-0.00773, 0.00770]$$
