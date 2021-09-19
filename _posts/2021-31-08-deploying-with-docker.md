@@ -3,6 +3,7 @@ layout: post
 title: "Deploying with Docker Containers"
 date: 2021-08-30
 category: Cloud-Computing
+image: container_cover.png
 excerpt: I explain how to use Docker containers to deploy a machine learning application.
 katex: True
 ---
