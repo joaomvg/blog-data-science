@@ -16,10 +16,10 @@ $$P(C,A,B)=P(C|A,B)P(A)P(B)$$
 
 This can be represented with the graph:
 
-<div style="text-align: center"><img src="/blog-data-science/images/bn_dag.png"  width="25%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_dag.png"  width="40%"></div>
 
 Since A and B are independent variables, there is no arrow in between them. On the other hand, if we introduce an arrow in between A and B,
-<div style="text-align: center"><img src="/blog-data-science/images/bn_dag_2.png"  width="50%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/bn_dag_2.png"  width="40%"></div>
 
 then the probabilistic model becomes
 
