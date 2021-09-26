@@ -8,7 +8,7 @@ excerpt: Kmeans clustering is a learning algorithm whereby datapoints are cluste
 katex: True
 ---
 
-### Clustering
+### Kmeans algorithm
 
 Kmeans clustering is an unsupervised machine learning algorithm. Given a set of data-points and the number of clusters the algorithm assigns each point to a particular cluster. The algorithm works iteratively starting from N randomly assigned cluster positions, and subsequently changing the positions until convergence is achieved.
 
@@ -24,16 +24,49 @@ The algorithm follows the steps:
 In the picture above, $p1$ represents the initial cluster position and $p2$ is center-of-mass. The algorithm continues until the change in the cluster positions is within a certain margin of error, indicating that it has converged. 
 
 The problem can be formulated as follows:
-* Find cluster positions $c_1,c_2\ldots,c_N$ and labels such that we minimize 
+* Find cluster positions $c_1,c_2\ldots,c_N$ and labels $l$ such that we minimize 
 
-$$D=\sum_{l=1}^N \sum_{x\in \text{cluster: }l}|x_l-c_l|^2$$
+$$D=\sum_{l=1}^N \sum_{\substack{i=1\\ x\in \text{cluster}:l}}^{N_l}|x^i_l-c_l|^2$$
 
-The algorithm depends strongly on the initial positions and it is not guaranteed that it will achieve a global optimum. Step 2 of the algorithm consists in atributing labels $l$ for the data-points $x$ such that $D$ is minimized given the centers of the clusters $c_l$. In step 3, we minimize with respect to the center positions $c_l$, that is,
+Here, $N_l$ is the number of data-points in cluster $l$. The algorithm depends strongly on the initial positions and it is not guaranteed that it will achieve a global optimum. Step 2 of the algorithm consists in atributing labels $l$ for the data-points $x$ such that $D$ is minimized given the centers of the clusters $c_l$. In step 3, we minimize with respect to the center positions $c_l$, that is,
 
 $$\begin{equation}\begin{split}
 &\frac{\partial D}{\partial c_l}=\sum_{x\in \text{cluster: }l}(x_l-c_l)=0\\
-&\iff c_l=\frac{1}{N_l}\sum_{x\in \text{cluster: }l} x_l
+&\Leftrightarrow c_l=\frac{1}{N_l}\sum_{x\in \text{cluster: }l} x_l
 \end{split}\end{equation}$$
+
+### Statistical point of view
+
+Consider the mixture gaussian model:
+
+$$\begin{equation}\begin{split}
+&P(x|c)=\frac{1}{\sigma\sqrt{2\pi}}\exp{-\frac{(x-x_c)^2}{2\sigma^2}} \\
+&P(c)=\frac{1}{N}
+\end{split}\end{equation}$$
+
+The probability $P(x)$ is
+
+$$P(x)=\sum_c P(x|c)P(c)=\frac{1}{N\sigma\sqrt{2\pi}}\sum_c\exp{-\frac{(x-x_c)^2}{2\sigma^2}}$$
+
+We want to use maximum-likelihood estimation to determine the centers $x_c$. Therefore, we want to maximize the likelihood:
+
+$$L=\sum_{x^i}\ln P(x^i)$$
+
+This is can be hard to solve because $P(x)$ contains a sum over multiple terms. However, we can approximate $P(x^i)$ by the cluster $c(i)$ that is closer to $x^i$, that is,
+
+$$P(x^i)\simeq \frac{1}{N\sigma\sqrt{2\pi}}\exp{-\frac{(x^i-x_{c(i)})^2}{2\sigma^2}}$$
+
+The approximation is valid provided there is a clear separation between the clusters, so the clusters different from $c(i)$ have exponentially suppressed contributions. That is, we need
+
+$$|x^i-x_{c(i)}|^2\ll |x^i-x_{c'}|^2,\;c(i)\neq c' $$
+
+then the likelihood function is:
+
+$$L=\sum_{x^i}\ln P(x^i)\simeq -\frac{1}{2\sigma^2}\sum_{x^i} (x^i-x_{c(i)})^2 $$
+
+Maximizing $L$ is equivalent to minimizing:
+
+$$\sum_{x^i} (x^i-x_{c(i)})^2=\sum_{c} \sum_{x\in \text{cluster}}(x^i-x_{c(i)})^2$$
 
 ### Python Implementation
 
