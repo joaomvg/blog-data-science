@@ -19,7 +19,7 @@ The algorithm follows the steps:
 3. Calculate the center-of-mass for each group, which is now the new cluster center position;
 4. Loop through 2,3 until a certain degree of convergence is achieved.
 
-<div style="text-align: center"><img src="/images/kmeans.png"  width="40%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/kmeans.png"  width="40%"></div>
 
 In the picture above, $p1$ represents the initial cluster position and $p2$ is center-of-mass. The algorithm continues until the change in the cluster positions is within a certain margin of error, indicating that it has converged. 
 
@@ -40,13 +40,13 @@ $$\begin{equation}\begin{split}
 Consider the mixture gaussian model:
 
 $$\begin{equation}\begin{split}
-&P(x|c)=\frac{1}{\sigma\sqrt{2\pi}}\exp{-\frac{(x-x_c)^2}{2\sigma^2}} \\
+&P(x|c)=\frac{1}{\sigma_c\sqrt{2\pi}}\exp{-\frac{(x-x_c)^2}{2\sigma_c^2}} \\
 &P(c)=\frac{1}{N}
 \end{split}\end{equation}$$
 
 The probability $P(x)$ is
 
-$$P(x)=\sum_c P(x|c)P(c)=\frac{1}{N\sigma\sqrt{2\pi}}\sum_c\exp{-\frac{(x-x_c)^2}{2\sigma^2}}$$
+$$P(x)=\sum_c P(x|c)P(c)=\sum_c\frac{1}{N\sigma_c\sqrt{2\pi}}\exp{-\frac{|x-x_c|^2}{2\sigma_c^2}}$$
 
 We want to use maximum-likelihood estimation to determine the centers $x_c$. Therefore, we want to maximize the likelihood:
 
@@ -54,20 +54,21 @@ $$L=\sum_{x^i}\ln P(x^i)$$
 
 This is can be hard to solve because $P(x)$ contains a sum over multiple terms. However, we can approximate $P(x^i)$ by the cluster $c(i)$ that is closer to $x^i$, that is,
 
-$$P(x^i)\simeq \frac{1}{N\sigma\sqrt{2\pi}}\exp{-\frac{(x^i-x_{c(i)})^2}{2\sigma^2}}$$
+$$P(x^i)\simeq \frac{1}{N\sigma_c\sqrt{2\pi}}\exp{-\frac{|x^i-x_{c(i)}|^2}{2\sigma_c^2}}$$
 
 The approximation is valid provided there is a clear separation between the clusters, so the clusters different from $c(i)$ have exponentially suppressed contributions. That is, we need
 
-$$|x^i-x_{c(i)}|^2\ll |x^i-x_{c'}|^2,\;c(i)\neq c' $$
+$$\frac{|x^i-x_{c(i)}|^2}{\sigma_{c(i)}}\ll \frac{|x^i-x_{c'}|^2}{\sigma_{c'}},\;c(i)\neq c' $$
 
 then the likelihood function is:
 
-$$L=\sum_{x^i}\ln P(x^i)\simeq -\frac{1}{2\sigma^2}\sum_{x^i} (x^i-x_{c(i)})^2 $$
+$$L=\sum_{x^i}\ln P(x^i)\simeq -\frac{1}{2\sigma_{c(i)}^2}\sum_{x^i} |x^i-x_{c(i)}|^2 $$
 
 Maximizing $L$ is equivalent to minimizing:
 
-$$\sum_{x^i} (x^i-x_{c(i)})^2=\sum_{c} \sum_{x\in \text{cluster}}(x^i-x_{c(i)})^2$$
+$$\sum_{x^i} \frac{1}{\sigma_{c(i)}^2}|x^i-x_{c(i)}|^2=\sum_{c} \frac{1}{\sigma_{c(i)}^2}\sum_{x\in \text{cluster}}|x^i-x_{c(i)}|^2$$
 
+Provided all the clusters have the same variance $\sigma_c=\sigma$, we recover the kmeans algorithm.
 ### Python Implementation
 
 The Python code is:
@@ -145,7 +146,7 @@ xs_all=np.concatenate(xs)
 ```
 that is,
 
-<div style="text-align: center"><img src="/images/clusters.png"  width="70%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/clusters.png"  width="70%"></div>
 
 To solve the problem instantiate the object and run fit method:
 ```python
@@ -153,10 +154,10 @@ km=Kmeans(N,0.01)
 km.fit(xs_all)
 ```
 
-<div style="text-align: center"><img src="/images/clusters_pred.png"  width="70%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/clusters_pred.png"  width="70%"></div>
 
 The dark crosses represent the solution of the k-means algorithm. We can keep track of the iterations:
 
-<div style="text-align: center"><img src="/images/kmeans_iterations.png"  width="70%"></div>
+<div style="text-align: center"><img src="/blog-data-science/images/kmeans_iterations.png"  width="70%"></div>
 
 The larger circle represents the initial position, and subsequent smaller circles are the intermediate positions until convergence.
