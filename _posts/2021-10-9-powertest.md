@@ -3,7 +3,7 @@ layout: post
 title: "Power Test"
 date: 2021-10-9
 category: Statistics
-image: 
+image: powertest.png
 excerpt: The power statistics calculates the probability of rejecting the null hypothesis assuming that the alternative is true. This is used to estimate sample sizes for trial experiments.
 katex: True
 ---
