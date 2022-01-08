@@ -27,7 +27,12 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  joaomvg
 linkedin_username: joaomvg
 # Build settings
+minima:
+  date_format: "%b %-d, %Y"
+  
 theme: minima
+
+
 plugins:
   - jekyll-feed
   - jekyll-katex
